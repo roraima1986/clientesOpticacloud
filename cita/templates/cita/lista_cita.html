@@ -1,0 +1,39 @@
+{% extends 'core/lista.html' %}
+
+{% block columns %}
+<tr>
+    <th scope="col" width="25%">Nombre Óptica</th>
+    <th scope="col" width="25%">Concepto</th>
+    <th scope="col" width="10%">Fecha</th>
+    <th scope="col" width="10%">Estado</th>
+    <th scope="col" width="10%">Creado</th>
+    <th scope="col" width="10%">Editado</th>
+    <th scope="col" width="10%">Opciones</th>
+</tr>
+{% endblock %}
+
+{% block rows %}
+{% for c in object_list %}
+<tr>
+    <td>{{ c.cliente }}</td>
+    <td>{% if c.concepto %}{{ c.concepto }}{% endif %}</td>
+    <td>{{ c.fecha|date:'d/m/Y' }}</td>
+    <td>
+        {% if c.estado == 'PENDIENTE' %}
+            <span class="badge badge-warning">{{ c.estado }}</span>
+        {% elif c.estado == 'LISTO' %}
+            <span class="badge badge-success">{{ c.estado }}</span>
+        {% elif c.estado == 'CANCELADO' %}
+            <span class="badge badge-danger">{{ c.estado }}</span>
+        {% endif %}
+    </td>
+    <td>{{ c.creado|date:'d/m/Y H:m:s' }}</td>
+    <td>{{ c.editado|date:'d/m/Y H:m:s' }}</td>
+    <td>
+        <a href="{% url 'editar_cita' c.id %}" class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="bottom" title="Editar {{ c.nombre_fantasia }}">
+            <i class="fas fa-edit"></i>
+        </a>
+    </td>
+</tr>
+{% endfor %}
+{% endblock %}

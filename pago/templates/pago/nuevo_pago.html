@@ -1,0 +1,22 @@
+{% extends 'core/nuevo.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block calculo %}
+<script>
+    function cal_total(){
+        let cantidad = parseInt(document.getElementById("id_cantidad").value) || 1;
+        let precio = parseInt(document.getElementById("id_precio").value) || 0;
+        let iva_porcentaje = parseInt(document.getElementById("id_iva_porcentaje").value) || 0;
+
+        let subtotal = document.getElementById("id_subtotal").value = cantidad * precio;
+        subtotal = Math.round(subtotal);
+
+        let iva_total = document.getElementById("id_iva_total").value = Math.round(subtotal * (iva_porcentaje / 100));
+
+
+        let total = document.getElementById("id_total").value = subtotal + iva_total;
+        total = Math.round(total);
+    }
+</script>
+{% endblock %}

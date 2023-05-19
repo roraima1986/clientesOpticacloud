@@ -1,0 +1,106 @@
+{% extends 'core/lista.html' %}
+
+<!--Bloque de informacion-->
+{% block info %}
+<div class="row">
+    <div class="col-sm-4 col-xs-12">
+        <!-- small card -->
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3>{{total_opt_activas}}</h3>
+                <p>Ópticas Activas</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-store"></i>
+            </div>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-sm-4 col-xs-12">
+        <!-- small card -->
+        <div class="small-box bg-success">
+            <div class="inner">
+                <h3>{{total_plan_mensual}}</h3>
+                <p>Plan Mensual</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-sm-4 col-xs-12">
+        <!-- small card -->
+        <div class="small-box bg-danger">
+            <div class="inner">
+                <h3>{{total_plan_anual}}</h3>
+                <p>Plan Anual</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-minus-circle"></i>
+            </div>
+
+        </div>
+    </div>
+    <!-- ./col -->
+</div>
+{% endblock %}
+
+{% block columns %}
+<tr>
+    <th scope="col" width="25%">Nombre Óptica</th>
+    <th scope="col" width="10%">Rut</th>
+    <th scope="col" width="10%">Estado</th>
+    <th scope="col" width="20%">Cuenta</th>
+    <th scope="col" width="10%">Plan</th>
+    <th scope="col" width="10%">Opciones</th>
+</tr>
+{% endblock %}
+
+{% block rows %}
+
+{% for c in object_list %}
+<tr>
+    <td>{{ c.nombre_fantasia }}</td>
+    <td>{{ c.rut }}</td>
+    <td>
+        {% if c.estado == 'DEMO' %}
+            <span class="badge badge-info">
+                {{ c.estado }}<br>
+                {% if c.fecha_inicio_demo %}I: {{ c.fecha_inicio_demo|date:'d/m/Y' }}{% endif %}<br>
+                {% if c.fecha_final_demo %}F: {{ c.fecha_final_demo|date:'d/m/Y' }}{% endif %}
+            </span>
+        {% elif c.estado == 'ACTIVA' %}
+            <span class="badge badge-success">
+                {{ c.estado }}<br>
+                {% if c.inicio_actividades %}{{ c.inicio_actividades|date:'d/m/Y' }}{% endif %}
+            </span>
+        {% elif c.estado == 'INHABILITADO' %}
+            <span class="badge badge-danger">
+                {{ c.estado }}<br>
+                {% if c.fin_actividades %}{{ c.fin_actividades|date:'d/m/Y' }}{% endif %}
+            </span>
+        {% endif %}
+    </td>
+    <td>{% if c.cuenta_opticacloud %}{{ c.cuenta_opticacloud }}{% endif %}</td>
+    <td>
+        {% if c.plan == 'MENSUAL' %}
+            <span class="badge badge-success">{{ c.plan }}</span>
+        {% elif c.plan == 'ANUAL' %}
+            <span class="badge badge-danger">{{ c.plan }}</span>
+        {% endif %}
+
+    </td>
+    <td>
+        <a href="{% url 'detalle_cliente' c.id %}" class="btn btn-info btn-xs" data-toggle="tooltip" data-placement="bottom" title="Ver {{ c.nombre_fantasia }}">
+            <i class="fas fa-eye"></i>
+        </a>
+        <a href="{% url 'editar_cliente' c.id %}" class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="bottom" title="Editar {{ c.nombre_fantasia }}">
+            <i class="fas fa-edit"></i>
+        </a>
+    </td>
+</tr>
+
+{% endfor %}
+{% endblock %}
+

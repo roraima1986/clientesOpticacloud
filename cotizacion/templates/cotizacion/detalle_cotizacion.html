@@ -1,0 +1,126 @@
+{% extends 'core/detalle.html' %}
+
+{% load static %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block detail %}
+
+<div class="row">
+    <div class="col-lg-1 col-sm-2">
+        <img src="{% static 'core/img/logo-opticacloud-01.png' %}" class="img-fluid">
+    </div>
+    <div class="col-lg-7 col-sm-6 ">
+        <h5>INFORMÁTICA MARCO MOYA E.I.R.L.</h5>
+        <p>
+            <b>Run:</b> 77.195.018-3 <br>
+            <b>Teléfono:</b> +56 9 30755926 <br>
+            <b>Correo:</b> contacto@opticacloud.net / opticacloud@gmail.com <br>
+        </p>
+    </div>
+    <div class="col-sm-4">
+        <h5>COTIZACIÓN NRO {{ object.id }}</h5>
+        <p>
+            <b>Fecha de Emisión:</b> {{ object.fecha|date:'d/m/Y' }}<br>
+            <b>Fecha de Expiración:</b> {{ object.fecha_exp|date:'d/m/Y' }}
+        </p>
+    </div>
+</div>
+
+<hr>
+
+<div class="row mr-1">
+    <div class="col-sm-1">
+        <p><b>Para:</b></p>
+    </div>
+    <div class="col-sm-11">
+        <p>
+            {{ object.cliente.razon_social }}<br>
+            Rut: {{ object.cliente.rut }}<br>
+            {% if object.cliente.direccion %}Dirección: {{ object.cliente.direccion }}<br>{% endif %}
+            {% if object.cliente.telefono %}Teléfono: {{ object.cliente.telefono }}<br>{% endif %}
+            {% if object.cliente.correo %}Correo: {{ object.cliente.correo }}{% endif %}
+        </p>
+    </div>
+</div>
+
+<div class="row mr-1">
+    <div class="col-sm-12">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Tiendas</th>
+                    <th scope="col">Precio *</th>
+                    <th scope="col">Sub-Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <b>
+                            OPTICACLOUD<br>
+                            Plan {{ object.plan }} de Software para Administrar Ópticas
+                        </b>
+                    </td>
+                    <td>{{ object.tiendas }}</td>
+                    <td>$ {{ object.precio }}</td>
+                    <td>$ {{ object.subtotal }}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><b>IVA {{ object.iva_porcentaje }}%</b></td>
+                    <td>$ {{ object.iva_total }}</td>
+                </tr>
+                <tr>
+                    <td><small>* Valor de la UF al día {{ object.fecha|date:'d/m/Y' }} = $ {{ object.precio }}</small></td>
+                    <td></td>
+                    <td><b>Total</b></td>
+                    <td><b>$ {{ object.total }}</b></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row mr-1">
+    <div class="col-sm-12">
+        <h4>Observaciones:</h4>
+
+        <p>
+            {% if object.plan == 'MENSUAL' %}
+                El precio del servicio vendrá determinado por el número de Tiendas que contrate, por lo
+                que el uso del software OPTICACLOUD tiene un costo de 1 UF + IVA por tienda, dicho precio esta sujeto a
+                cambios mensuales de acuerdo al valor de la UF Chilena.
+            {% elif object.plan == 'ANUAL' %}
+                Valor del Plan Anual es de 10.8UF al año por cada tienda. Al contratar el Plan Anual se le cobrará de
+                acuerdo al valor de la UF del día de la solicitud.
+            {% endif %}
+        </p>
+
+        <p>
+            <b>Modalidad de Pago:</b> Transferencia
+        </p>
+
+        <p>
+            <b>Fecha de Pago:</b>
+            {% if object.plan == 'MENSUAL' %}
+                1º de cada mes
+            {% elif object.plan == 'ANUAL' %}
+                1º de cada año
+            {% endif %}
+        </p>
+
+        <div class="mt-3 no-print">
+            <button onclick="window.print()" class="btn btn-success">
+                <i class="fas fa-print"></i>
+                Imprimir
+            </button>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

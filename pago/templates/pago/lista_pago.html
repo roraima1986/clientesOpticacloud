@@ -1,0 +1,118 @@
+{% extends 'core/lista.html' %}
+{% load static %}
+
+<!--Bloque de informacion-->
+{% block info %}
+<div class="row">
+    <div class="col-sm-4 col-xs-12">
+        <!-- small card -->
+        <div class="small-box bg-success">
+            <div class="inner">
+                <h3>{{total_pagadas}}</h3>
+                <p>Pagadas</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-sm-4 col-xs-12">
+        <!-- small card -->
+        <div class="small-box bg-danger">
+            <div class="inner">
+                <h3>{{total_debe}}</h3>
+                <p>Deben</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-minus-circle"></i>
+            </div>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-sm-4 col-xs-12">
+        <!-- small card -->
+        <div class="small-box bg-warning">
+            <div class="inner">
+                <h3>{{total_anulada}}</h3>
+                <p>Anuladas</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-exclamation-circle"></i>
+            </div>
+
+        </div>
+    </div>
+    <!-- ./col -->
+</div>
+{% endblock %}
+
+    {% block buttons %}
+    <div class="card-header">
+        <div class="float-right">
+            <button class="btn btn-info" data-toggle="modal" data-target="#myModalExcel">
+                <i class="fas fa-file-excel"></i>
+                EXCEL
+            </button>
+            <a href="{{ create_url }}" class="btn btn-success">
+                <i class="fas fa-plus"></i>
+                Nuevo
+            </a>
+            <div class="modal fade" id="myModalExcel" data-backdrop="static"></div>
+        </div>
+    </div>
+    {% endblock %}
+
+
+{% block columns %}
+<tr>
+    <th scope="col" width="5%"></th>
+    <th scope="col" width="10%">Mes/Año</th>
+    <th scope="col">Nombre Óptica</th>
+    <th scope="col" width="10%">Sub-Total</th>
+    <th scope="col" width="10%">IVA</th>
+    <th scope="col" width="10%">Total</th>
+    <th scope="col" width="10%">Estado</th>
+    <th scope="col" width="10%">N° Factura</th>
+    <th scope="col" width="10%">Fecha Pago</th>
+    <th scope="col" width="10%">Opciones</th>
+</tr>
+{% endblock %}
+
+{% block rows %}
+
+{% for c in object_list %}
+
+<tr>
+    <td>{{ c.id }}</td>
+    <td>{{ c.mes }}/{{ c.year }}</td>
+    <td>{{ c.cliente }}<br>{{ c.cliente.rut }}</td>
+    <td>{{ c.subtotal }}</td>
+    <td>{{ c.iva_total }}</td>
+    <td>{{ c.total }}</td>
+    <td>
+        {% if c.estado == 'DEBE' %}
+            <span class="badge badge-danger">{{ c.estado }}</span>
+        {% elif c.estado == 'PAGADA' %}
+            <span class="badge badge-success">{{ c.estado }}</span>
+        {% elif c.estado == 'ANULADA' %}
+            <span class="badge badge-warning">{{ c.estado }}</span>
+        {% endif %}
+    </td>
+    <td>{{ c.n_factura }}</td>
+    <td>{% if c.fecha_pago %}{{ c.fecha_pago|date:'d/m/Y' }}{% endif %}</td>
+    <td>
+        <a href="{% url 'detalle_pago' c.id %}" class="btn btn-info btn-xs" data-toggle="tooltip" data-placement="bottom" title="Ver {{ c.nombre_fantasia }}">
+            <i class="fas fa-eye"></i>
+        </a>
+        <a href="{% url 'editar_pago' c.id %}" class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="bottom" title="Editar {{ c.nombre_fantasia }}">
+            <i class="fas fa-edit"></i>
+        </a>
+    </td>
+</tr>
+{% endfor %}
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'pago/js/filter.js' %}"></script>
+{% endblock %}

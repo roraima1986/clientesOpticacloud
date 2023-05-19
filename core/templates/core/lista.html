@@ -1,0 +1,86 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block head %}
+    <!-- Datatable -->
+    <link rel="stylesheet" href="{% static 'core/lib/datatable/css/bootstrap-4.min.css' %}">
+    <link rel="stylesheet" href="{% static 'core/lib/datatable/css/responsive.bootstrap4.min.css' %}">
+    <link rel="stylesheet" href="{% static 'core/lib/datatable/css/datatable.css' %}">
+    <link rel="stylesheet" href="{% static 'core/lib/datatable/css/buttons.bootstrap4.min.css' %}">
+    <link rel="stylesheet" href="{% static 'core/lib/datatable/css/searchPanes.dataTables.min.css' %}">
+    <link rel="stylesheet" href="{% static 'core/lib/datatable/css/select.dataTables.min.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!--Bloque de información del contenido-->
+{% block info %}{% endblock %}
+
+<div class="card card-outline card-primary">
+    {% block buttons %}
+    <div class="card-header">
+        <div class="float-right">
+            <a href="{{ create_url }}" class="btn btn-success">
+                <i class="fas fa-plus"></i>
+                Nuevo
+            </a>
+        </div>
+    </div>
+    {% endblock %}
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table" id="myTable">
+                <thead>
+                {% block columns %}{% endblock %}
+                </thead>
+                <tbody>
+                {% block rows %}{% endblock %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'core/lib/datatable/js/datatable.js' %}"></script>
+    <script src="{% static 'core/lib/datatable/js/dataTables.searchPanes.min.js' %}"></script>
+    <script src="{% static 'core/lib/datatable/js/dataTables.select.min.js' %}"></script>
+    <!--<script src="{% static 'core/lib/datatable/js/dataTables.bootstrap4.min.js' %}"></script>-->
+    <script src="{% static 'core/lib/datatable/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'core/lib/datatable/js/responsive.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'core/lib/datatable/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'core/lib/datatable/js/buttons.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'core/lib/datatable/js/jszip.min.js' %}"></script>
+    <script src="{% static 'core/lib/datatable/js/pdfmake.min.js' %}"></script>
+    <script src="{% static 'core/lib/datatable/js/vfs_fonts.js' %}"></script>
+    <script src="{% static 'core/lib/datatable/js/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'core/lib/datatable/js/buttons.print.min.js' %}"></script>
+    <script src="{% static 'core/lib/datatable/js/buttons.colVis.min.js' %}"></script>
+
+    <script src="{% static 'core/js/lista.js' %}"></script>
+    {% block js %}{% endblock %}
+{% endblock %}
+
+{% block javascript %}
+<script>
+let mensaje = '';
+
+{% if messages %}
+    {% for message in messages %}
+        mensaje += '{{ message }}';
+    {% endfor %}
+
+    Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: mensaje,
+        showConfirmButton: false,
+        timer: 1500
+    });
+{% endif %}
+
+</script>
+{% endblock %}

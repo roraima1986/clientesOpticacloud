@@ -1,0 +1,105 @@
+{% extends 'core/detalle.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block detail %}
+
+<strong><i class="fas fa-book mr-1"></i> Datos del Cliente</strong>
+
+<div class="row">
+    <div class="col">
+        <span class="text-muted"><b>Razón Social:</b> {{ object.cliente.razon_social }}</span>
+    </div>
+    <div class="col">
+        <span class="text-muted"><b>Nombre Fantasía:</b> {{ object.cliente.nombre_fantasia }}</span>
+    </div>
+    <div class="col">
+        <span class="text-muted"><b>Rut:</b> {{ object.cliente.rut }} </span>
+    </div>
+    <div class="col">
+        <span class="text-muted">{{ object.mes }}/{{ object.year }} </span>
+    </div>
+</div>
+
+<hr>
+
+<strong><i class="fas fa-book mr-1"></i> Descripción</strong>
+
+<div class="col">
+    <span class="text-muted">{% if object.descripcion %}{{ object.descripcion }}{% endif %}</span>
+</div>
+
+<hr>
+
+<strong><i class="fas fa-book mr-1"></i> Datos de Deuda</strong>
+
+<div class="row">
+    <div class="col">
+        <span class="text-muted"><b>Cantidad:</b> {{ object.cantidad }}</span>
+    </div>
+    <div class="col">
+        <span class="text-muted"><b>Precio:</b> {{ object.precio }}</span>
+    </div>
+    <div class="col">
+        <span class="text-muted"><b>Subtotal:</b> {{ object.subtotal }} </span>
+    </div>
+    <div class="col">
+        <span class="text-muted"><b>IVA(%):</b> {{ object.iva_porcentaje }} </span>
+    </div>
+    <div class="col">
+        <span class="text-muted"><b>IVA Total:</b> {{ object.iva_total }} </span>
+    </div>
+    <div class="col">
+        <span class="text-muted"><b>Total:</b> {{ object.total }} </span>
+    </div>
+</div>
+
+<hr>
+
+<strong><i class="fas fa-book mr-1"></i> Datos de Pago</strong>
+
+<div class="row">
+    <div class="col">
+        <span class="text-muted"><b>N° Factura (SII):</b> {{ object.n_factura }}</span>
+    </div>
+    <div class="col">
+        <span class="text-muted"><b>Fecha Factura (SII):</b> {{ object.fecha_factura }}</span>
+    </div>
+    <div class="col">
+        {% if object.estado == 'DEBE' %}
+            <span class="badge badge-danger">{{ object.estado }}</span>
+        {% endif %}
+        {% if object.estado == 'PAGADA' %}
+            <span class="badge badge-success">{{ object.estado }}</span>
+        {% endif %}
+        {% if object.estado == 'ANULADA' %}
+            <span class="badge badge-warning">{{ object.estado }}</span>
+        {% endif %}
+    </div>
+    <div class="col">
+        <span class="text-muted"><b>Fecha Pago:</b> {% if object.fecha_pago %}{{ object.fecha_pago }}{% endif %}</span>
+    </div>
+</div>
+
+<hr>
+
+<strong><i class="fas fa-book mr-1"></i> Observación</strong>
+
+<div class="col">
+    <span class="text-muted">{% if object.observacion %}{{ object.observacion }}{% endif %}</span>
+</div>
+
+<hr>
+
+<strong><i class="fas fa-book mr-1"></i> Fecha de registro y edición</strong>
+
+<div class="row">
+    <div class="col">
+        <span class="text-muted"><b>Registrado:</b> {{ object.creado|date:'d/M/Y H:m:s' }}</span>
+    </div>
+    <div class="col">
+        <span class="text-muted"><b>Editado:</b> {{ object.editado|date:'d/M/Y H:m:s' }}</span>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block head %}
+<!--select2-->
+<link rel="stylesheet" href="{% static 'core/lib/select2/css/select2.min.css' %}">
+<link rel="stylesheet" href="{% static 'core/lib/select2/css/select2-bootstrap4.min.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="card card-outline card-primary">
+    <div class="card-header">
+        <div class="float-right">
+            <a href="{{ list_url }}" class="btn btn-success">
+                <i class="fas fa-list-alt"></i> Lista
+            </a>
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <form method="post" action="." class="form-validate">
+            {% csrf_token %}
+            <div class="row">
+                {% for field in form.visible_fields %}
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                    <div class="form-group">
+                        <label>
+                            {{ field.label }}
+                        </label>
+                        {{ field }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div>
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-save"></i>
+                    GUARDAR
+                </button>
+                <a href="{{ list_url }}" class="btn btn-secondary">
+                    <i class="fas fa-times"></i> CANCELAR
+                </a>
+            </div>
+        </form>
+    </div>
+    <!-- /.card-body -->
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!--select2-->
+<script src="{% static 'core/lib/select2/js/select2.full.min.js' %}"></script>
+<script src="{% static 'core/lib/select2/js/i18n/es.js' %}"></script>
+<script src="{% static 'core/js/select2.js' %}"></script>
+{% endblock %}
+
+{% block javascript %}
+<script>
+let error = '';
+
+{% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+        error += '{{ error }}'
+        {% endfor %}
+    {% endfor %}
+
+    Swal.fire({
+        position: 'top-center',
+        icon: 'error',
+        text: error,
+    });
+{% endif %}
+
+</script>
+
+{% block calculo %}{% endblock %}
+
+{% endblock %}

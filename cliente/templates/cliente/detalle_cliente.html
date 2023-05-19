@@ -1,0 +1,143 @@
+{% extends 'core/detalle.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block detail %}
+
+<strong><i class="fas fa-book mr-1"></i> Datos Básicos</strong>
+
+<div class="row">
+    <div class="col">
+        <span class="text-muted"><b>Razón Social:</b> {{ object.razon_social }}</span>
+    </div>
+    <div class="col">
+        <span class="text-muted"><b>Nombre Fantasía:</b> {{ object.nombre_fantasia }}</span>
+    </div>
+    <div class="col">
+        <span class="text-muted"><b>Rut:</b> {{ object.rut }} </span>
+    </div>
+    <div class="col">
+        <span class="text-muted"><b>Tiendas:</b> {{ object.tiendas }} </span>
+    </div>
+</div>
+
+<hr>
+
+<strong><i class="fas fa-book mr-1"></i> Datos de Contacto de la Óptica</strong>
+
+<div class="row">
+    <div class="col">
+        <span class="text-muted"><b>Correo:</b> {% if object.correo %}{{ object.correo }}{% endif %}</span>
+    </div>
+    <div class="col">
+        <span class="text-muted"><b>Teléfono:</b> {% if object.telefono %}{{ object.telefono }}{% endif %}</span>
+    </div>
+    <div class="col">
+        <span class="text-muted"><b>Dirección:</b> {% if object.direccion %}{{ object.direccion }}{% endif %}</span>
+    </div>
+    <div class="col">
+        <span class="text-muted"><b>Ciudad:</b> {% if object.ciudad %}{{ object.ciudad }}{% endif %}</span>
+    </div>
+    <div class="col">
+        <span class="text-muted"><b>Comuna:</b> {% if object.comuna %}{{ object.comuna }}{% endif %}</span>
+    </div>
+</div>
+
+<hr>
+
+<strong><i class="fas fa-book mr-1"></i> Datos de Contacto</strong>
+
+<div class="row">
+    <div class="col">
+        <span class="text-muted"><b>Contacto:</b> {% if object.contacto %}{{ object.contacto }}{% endif %}</span>
+    </div>
+    <div class="col">
+        <span class="text-muted"><b>Teléfono Contacto:</b> {% if object.telefono_contacto %}{{ object.telefono_contacto }}{% endif %}</span>
+    </div>
+</div>
+
+<hr>
+
+<strong><i class="fas fa-book mr-1"></i> Necesidad para un software</strong>
+
+<div class="col">
+    <span class="text-muted">{% if object.necesidad %}{{ object.necesidad }}{% endif %}</span>
+</div>
+
+<hr>
+
+<strong><i class="fas fa-book mr-1"></i> Estado</strong>
+
+<div class="col">
+    {% if object.estado == 'DEMO' %}
+        <span class="badge badge-info">{{ object.estado }}</span>
+    {% endif %}
+    {% if object.estado == 'ACTIVA' %}
+        <span class="badge badge-success">{{ object.estado }}</span>
+    {% endif %}
+    {% if object.estado == 'INHABILITADO' %}
+        <span class="badge badge-danger">{{ object.estado }}</span>
+    {% endif %}
+</div>
+
+<hr>
+
+<strong><i class="fas fa-book mr-1"></i> Demo</strong>
+
+<div class="row">
+    <div class="col">
+        <span class="text-muted"><b>Cuenta Demo:</b> {% if object.cuenta_demo %}{{ object.cuenta_demo }}{% endif %}</span>
+    </div>
+    <div class="col">
+        <span class="text-muted"><b>Fecha Inicio Demo:</b> {{ object.fecha_inicio_demo|date:'d/M/Y' }}</span>
+    </div>
+    <div class="col">
+        <span class="text-muted"><b>Fecha Fin Demo:</b> {{ object.fecha_final_demo|date:'d/M/Y' }}</span>
+    </div>
+</div>
+
+<hr>
+
+<strong><i class="fas fa-book mr-1"></i> Cuenta OPTICACLOUD</strong>
+
+<div class="row">
+    <div class="col">
+        <span class="text-muted"><b>{% if object.cuenta_opticacloud %}{{ object.cuenta_opticacloud }}{% endif %}</b></span>
+    </div>
+    <div class="col">
+        {% if object.plan == 'MENSUAL' %}
+            <span class="badge badge-success">Plan {{ object.plan }}</span>
+        {% elif object.plan == 'ANUAL' %}
+            <span class="badge badge-danger">Plan {{ object.plan }}</span>
+        {% endif %}
+    </div>
+    <div class="col">
+        <span class="text-muted"><b>Fecha Inicio Actividades:</b> {{ object.inicio_actividades|date:'d/M/Y' }}</span>
+    </div>
+    <div class="col">
+        <span class="text-muted"><b>Fecha Fin Actividades:</b> {{ object.fin_actividades|date:'d/M/Y' }}</span>
+    </div>
+</div>
+
+<hr>
+
+<strong><i class="fas fa-book mr-1"></i> Observación</strong>
+
+<div class="col">
+    <span class="text-muted">{% if object.observacion %}{{ object.observacion }}{% endif %}</span>
+</div>
+
+<hr>
+
+<strong><i class="fas fa-book mr-1"></i> Fecha de registro y edición</strong>
+
+<div class="row">
+    <div class="col">
+        <span class="text-muted"><b>Registrado:</b> {{ object.creado|date:'d/M/Y H:m:s' }}</span>
+    </div>
+    <div class="col">
+        <span class="text-muted"><b>Editado:</b> {{ object.editado|date:'d/M/Y H:m:s' }}</span>
+    </div>
+</div>
+
+{% endblock %}

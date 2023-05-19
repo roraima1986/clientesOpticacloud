@@ -1,0 +1,22 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <div class="float-right no-print">
+            <a href="{{ list_url }}" class="btn btn-success">
+                <i class="fas fa-list-alt"></i> Lista
+            </a>
+        </div>
+
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        {% block detail %}{% endblock %}
+    </div>
+    <!-- /.card-body -->
+</div>
+{% endblock %}
+
+

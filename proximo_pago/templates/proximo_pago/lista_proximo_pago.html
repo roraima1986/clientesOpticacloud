@@ -1,0 +1,87 @@
+{% extends 'core/lista.html' %}
+
+<!--Bloque de informacion-->
+{% block info %}
+<div class="row">
+    <div class="col-sm-4 col-xs-12">
+        <!-- small card -->
+        <div class="small-box bg-success">
+            <div class="inner">
+                <h3>{{total_procesadas}}</h3>
+                <p>Procesadas</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-sm-4 col-xs-12">
+        <!-- small card -->
+        <div class="small-box bg-warning">
+            <div class="inner">
+                <h3>{{total_pendientes}}</h3>
+                <p>Pendientes</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-exclamation-circle"></i>
+            </div>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-sm-4 col-xs-12">
+        <!-- small card -->
+        <div class="small-box bg-danger">
+            <div class="inner">
+                <h3>{{total_canceladas}}</h3>
+                <p>Canceladas</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-minus-circle"></i>
+            </div>
+
+        </div>
+    </div>
+    <!-- ./col -->
+</div>
+{% endblock %}
+
+{% block columns %}
+<tr>
+    <th scope="col" width="5%"></th>
+    <th scope="col" width="10%">Fecha</th>
+    <th scope="col">Nombre Óptica</th>
+    <th scope="col" width="10%">Estado</th>
+    <th scope="col" width="25%">Observación</th>
+    <th scope="col" width="10%">Creado</th>
+    <th scope="col" width="10%">Editado</th>
+    <th scope="col" width="10%">Opciones</th>
+</tr>
+{% endblock %}
+
+{% block rows %}
+{% for c in object_list %}
+<tr>
+    <td>{{ c.id }}</td>
+    <td>{{ c.fecha|date:'d/m/Y' }}</td>
+    <td>{{ c.cliente }} ({{ c.cliente.rut }})</td>
+    <td>
+        {% if c.estado == 'PENDIENTE' %}
+            <span class="badge badge-warning">{{ c.estado }}</span>
+        {% elif c.estado == 'PROCESADA' %}
+            <span class="badge badge-success">{{ c.estado }}</span>
+        {% elif c.estado == 'CANCELADA' %}
+            <span class="badge badge-danger">{{ c.estado }}</span>
+        {% endif %}
+    </td>
+    <td>{% if c.observacion %}{{ c.observacion }}{% endif %}</td>
+    <td>{{ c.creado|date:'d/m/Y H:m:s' }}</td>
+    <td>{{ c.editado|date:'d/m/Y H:m:s' }}</td>
+    <td>
+        <a href="{% url 'editar_proximo_pago' c.id %}" class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="bottom" title="Editar {{ c.nombre_fantasia }}">
+            <i class="fas fa-edit"></i>
+        </a>
+    </td>
+</tr>
+{% endfor %}
+{% endblock %}

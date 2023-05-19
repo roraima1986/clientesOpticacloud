@@ -1,0 +1,39 @@
+{% extends 'core/lista.html' %}
+
+{% block columns %}
+<tr>
+    <th scope="col" width="15%">Nombre Óptica</th>
+    <th scope="col" width="10%">Fecha</th>
+    <th scope="col" width="20%">Petición</th>
+    <th scope="col" width="10%">Estado</th>
+    <th scope="col" width="15%">Observación</th>
+    <th scope="col" width="10%">Creado</th>
+    <th scope="col" width="10%">Editado</th>
+    <th scope="col" width="10%">Opciones</th>
+</tr>
+{% endblock %}
+
+{% block rows %}
+{% for c in object_list %}
+<tr>
+    <td>{{ c.cliente }}</td>
+    <td>{{ c.fecha }}</td>
+    <td>{{ c.peticion }}</td>
+    <td>
+        {% if c.estado == 'PENDIENTE' %}
+            <span class="badge badge-danger">{{ c.estado }}</span>
+        {% elif c.estado == 'PROCESADA' %}
+            <span class="badge badge-success">{{ c.estado }}</span>
+        {% endif %}
+    </td>
+    <td>{% if c.observacion %}{{ c.observacion }}{% endif %}</td>
+    <td>{{ c.creado|date:'d/m/Y H:m:s' }}</td>
+    <td>{{ c.editado|date:'d/m/Y H:m:s' }}</td>
+    <td>
+        <a href="{% url 'editar_peticion' c.id %}" class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="bottom" title="Editar {{ c.cliente }}">
+            <i class="fas fa-edit"></i>
+        </a>
+    </td>
+</tr>
+{% endfor %}
+{% endblock %}

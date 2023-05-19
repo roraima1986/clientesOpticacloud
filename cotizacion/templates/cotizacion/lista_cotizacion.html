@@ -1,0 +1,38 @@
+{% extends 'core/lista.html' %}
+
+{% block columns %}
+<tr>
+    <th scope="col" width="5%">Nro</th>
+    <th scope="col" width="25%">Nombre Óptica</th>
+    <th scope="col" width="10%">Plan</th>
+    <th scope="col" width="5%">Tiendas</th>
+    <th scope="col" width="10%">Total</th>
+    <th scope="col" width="10%">Creado</th>
+    <th scope="col" width="10%">Editado</th>
+    <th scope="col" width="10%">Opciones</th>
+</tr>
+{% endblock %}
+
+{% block rows %}
+
+{% for c in object_list %}
+<tr>
+    <td>{{ c.id }}</td>
+    <td>{{ c.cliente }}</td>
+    <td>{{ c.plan }}</td>
+    <td>{{ c.tiendas }}</td>
+    <td>{{ c.total }}</td>
+    <td>{{ c.creado|date:'d/m/Y H:m:s' }}</td>
+    <td>{{ c.editado|date:'d/m/Y H:m:s' }}</td>
+    <td>
+        <a href="{% url 'detalle_cotizacion' c.id %}" class="btn btn-info btn-xs" data-toggle="tooltip" data-placement="bottom" title="Ver {{ c.nombre_fantasia }}">
+            <i class="fas fa-eye"></i>
+        </a>
+        <a href="{% url 'editar_cotizacion' c.id %}" class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="bottom" title="Editar {{ c.nombre_fantasia }}">
+            <i class="fas fa-edit"></i>
+        </a>
+    </td>
+</tr>
+
+{% endfor %}
+{% endblock %}
