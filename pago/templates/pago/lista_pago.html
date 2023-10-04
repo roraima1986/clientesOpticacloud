@@ -69,8 +69,9 @@
     <th scope="col" width="5%"></th>
     <th scope="col" width="10%">Mes/Año</th>
     <th scope="col">Nombre Óptica</th>
+    <th scope="col" width="5%">Tiendas</th>
     <th scope="col" width="10%">Sub-Total</th>
-    <th scope="col" width="10%">IVA</th>
+    <th scope="col" width="5%">IVA</th>
     <th scope="col" width="10%">Total</th>
     <th scope="col" width="10%">Estado</th>
     <th scope="col" width="10%">N° Factura</th>
@@ -87,6 +88,7 @@
     <td>{{ c.id }}</td>
     <td>{{ c.mes }}/{{ c.year }}</td>
     <td>{{ c.cliente }}<br>{{ c.cliente.rut }}</td>
+    <td>{{ c.cantidad }}</td>
     <td>{{ c.subtotal }}</td>
     <td>{{ c.iva_total }}</td>
     <td>{{ c.total }}</td>

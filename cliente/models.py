@@ -13,7 +13,7 @@ class Cliente(models.Model):
     comuna = models.CharField(max_length=100, verbose_name='Comuna',null=True, blank=True)
     contacto = models.CharField(max_length=100, verbose_name='Contacto', null=True, blank=True)
     telefono_contacto = models.CharField(max_length=50, verbose_name='Telefóno Contacto', null=True, blank=True)
-    necesidad = models.CharField(max_length=200, verbose_name='Necesidad', null=True, blank=True)
+    necesidad = models.TextField(verbose_name='Necesidad', null=True, blank=True)
     estado = models.CharField(max_length=15, choices=[('DEMO', 'DEMO'),('ACTIVA', 'ACTIVA'),('INHABILITADO', 'INHABILITADO')],
         verbose_name='Estado',null=True,blank=True)
     cuenta_demo = models.CharField(max_length=100, verbose_name='Cuenta Demo', null=True, blank=True)
@@ -21,7 +21,7 @@ class Cliente(models.Model):
     fecha_final_demo = models.DateField(verbose_name='Fin Demo', null=True, blank=True)
     cuenta_opticacloud = models.CharField(max_length=50, verbose_name='Cuenta OPTICACLOUD', null=True, blank=True)
     plan = models.CharField(max_length=10, choices=[('MENSUAL', 'MENSUAL'),('ANUAL', 'ANUAL')],
-        verbose_name='Plan',null=True,blank=True)
+        verbose_name='Plan', null=True, blank=True)
     inicio_actividades = models.DateField(verbose_name='Inicio de Actividades', null=True, blank=True)
     fin_actividades = models.DateField(verbose_name='Fin de Actividades', null=True, blank=True)
     observacion = models.CharField(max_length=200, verbose_name='Observación', null=True, blank=True)

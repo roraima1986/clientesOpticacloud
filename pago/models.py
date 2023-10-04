@@ -13,6 +13,7 @@ class Pago(models.Model):
             ('ABRIL', 'ABRIL'),
             ('MAYO', 'MAYO'),
             ('JUNIO', 'JUNIO'),
+            ('JULIO', 'JULIO'),
             ('AGOSTO', 'AGOSTO'),
             ('SEPTIEMBRE', 'SEPTIEMBRE'),
             ('OCTUBRE', 'OCTUBRE'),
@@ -21,7 +22,7 @@ class Pago(models.Model):
         ],
         verbose_name='Mes')
     year = models.IntegerField(verbose_name='Año')
-    descripcion = models.CharField(max_length=200, verbose_name='Descripción', null=True, blank=True)
+    descripcion = models.CharField(max_length=200, verbose_name='Descripción', null=True, blank=True, default='LICENCIA MENSUAL')
     cantidad = models.IntegerField(verbose_name='Tiendas', default=1)
     precio = models.IntegerField(verbose_name='Precio')
     subtotal = models.IntegerField(verbose_name='Sub-Total')
@@ -30,7 +31,7 @@ class Pago(models.Model):
     total = models.IntegerField(verbose_name='Total')
     n_factura = models.CharField(max_length=10, verbose_name='N° Factura (SII)', unique=True)
     fecha_factura = models.DateField(verbose_name='Fecha Factura (SII)')
-    estado = models.CharField(max_length=10, choices=[('DEBE', 'DEBE'), ('PAGADA', 'PAGADA'), ('ANULADA', 'ANULADA')], verbose_name='Estado')
+    estado = models.CharField(max_length=10, choices=[('DEBE', 'DEBE'), ('PAGADA', 'PAGADA'), ('ANULADA', 'ANULADA')], verbose_name='Estado', default='DEBE')
     fecha_pago = models.DateField(verbose_name='Fecha Pago', null=True, blank=True)
     observacion = models.CharField(max_length=200, verbose_name='Observación', null=True, blank=True)
     creado = models.DateTimeField(verbose_name='Creado', auto_now_add=True)
