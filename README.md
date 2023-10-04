@@ -12,7 +12,8 @@ Este sistema permite el control de los pagos de clientes (Ópticas). Su Frontend
 
 Para el funcionamiento de este sistema en tu equipo, previamente debes tener instalado en tu equipo Python y Django. 
 
-1. Clonar el proyecto
-2. Ejecutar ```python manage.py runserver``` en la terminal 
+1. Clonar el proyecto.
+2. Instalar las librerias que aparecen en requirements.txt. 
+3. Ejecutar ```python manage.py runserver``` en la terminal.
 
 
